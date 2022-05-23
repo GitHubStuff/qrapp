@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:qrapp/screens/qr_generator.dart';
+import 'package:qrapp/services/get_service.dart';
 
 import 'screens/my_home_page.dart';
 import 'screens/network_qr.dart';
@@ -12,13 +13,16 @@ void main() {
 
 class AppModule extends Module {
   @override
-  List<Bind> get binds => [];
+  List<Bind> get binds => [
+        Bind.singleton((i) => FakeService()),
+      ];
+
   @override
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (_, __) => const MyHomePage(title: 'Superformula Demo Page')),
         ChildRoute(QRScanner.route, child: (_, __) => const QRScanner()),
-        ChildRoute(QRGenerator.route, child:(_, args) => QRGenerator(qrString: args.data)),
-        ChildRoute(NetworkQR.route, child:(_,__) => NetworkQR()),
+        ChildRoute(QRGenerator.route, child: (_, args) => QRGenerator(qrString: args.data)),
+        ChildRoute(NetworkQR.route, child: (_, __) => NetworkQR()),
       ];
 }
 

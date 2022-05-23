@@ -9,3 +9,8 @@ class NetworkDownloadedQR extends NetworkQrState {
   final String qrData;
   NetworkDownloadedQR(this.qrData);
 }
+
+class NetworkFailure extends NetworkQrState {
+  final Failure failure;
+  NetworkFailure(this.failure);
+}

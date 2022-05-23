@@ -25,10 +25,16 @@ class NetworkQR extends StatelessWidget {
                 cubit.download();
               }
               if (state is NetworkDownloadedQR) {
-                Future.delayed(const Duration(milliseconds: 150), () {
-                  Modular.to.pushNamed(QRGenerator.route, arguments: state.qrData);
+                Future.delayed(const Duration(milliseconds: 150), () async {
+                  await Modular.to.pushNamed(QRGenerator.route, arguments: state.qrData);
+                  Modular.to.pop();
                 });
               }
+
+              if (state is NetworkFailure) {
+                return Text(state.failure.toString());
+              }
+
               return const CircularProgressIndicator();
             },
           ),
