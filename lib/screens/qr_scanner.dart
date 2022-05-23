@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qrapp/screens/qr_generator.dart';
 
 class QRScanner extends StatefulWidget {
   static const route = '/QRScanner';
-  
+
   const QRScanner({Key? key}) : super(key: key);
 
   @override
@@ -78,4 +80,15 @@ class _MyHomePageState extends State<QRScanner> {
           borderWidth: 5,
         ),
       );
+
+  ElevatedButton _showQRButton() {
+    final ButtonStyle style = ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
+    return ElevatedButton(
+      style: style,
+      onPressed: () {
+        Modular.to.pushNamed(QRGenerator.route, arguments: barcodeResult!.code);
+      },
+      child: const Text('Render'),
+    );
+  }
 }
