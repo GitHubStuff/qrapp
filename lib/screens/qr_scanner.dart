@@ -1,5 +1,8 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScanner extends StatelessWidget {
   const QRScanner({Key? key}) : super(key: key);
@@ -8,11 +11,11 @@ class QRScanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Superformula Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Superformula Demo Page'),
+      home: const MyHomePage(title: 'Superformula Scan Page'),
     );
   }
 }
@@ -27,6 +30,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
+  Barcode? barcodeResult;
+  QRViewController? qrViewController;
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    if (Platform.isAndroid) {
+      qrViewController!.pauseCamera();
+    } else if (Platform.isIOS) {
+      qrViewController!.resumeCamera();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,30 +54,38 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+          children: <Widget>[
+            Expanded(
+              flex: 5,
+              child: QRView(
+                key: qrKey,
+                onQRViewCreated: _onQRViewCreated,
+              ),
             ),
+            Expanded(
+              flex: 1,
+              child: Center(
+                child: (barcodeResult != null) ? Text('Barcode Type: ${describeEnum(barcodeResult!.format)}   Data: ${barcodeResult!.code}') : const Text('Scan a code'),
+              ),
+            )
           ],
         ),
       ),
-      floatingActionButton: SpeedDial(
-        animatedIcon: AnimatedIcons.menu_close,
-        overlayColor: Colors.black,
-        overlayOpacity: 0.45,
-        children: [
-          SpeedDialChild(
-            child: const Icon(Icons.qr_code),
-            label: 'Generate QR Code',
-            onTap: () {},
-          ),
-          SpeedDialChild(
-            child: const Icon(Icons.camera),
-            label: 'Scan QR Code',
-            onTap: () {},
-          ),
-        ],
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  @override
+  dispose() {
+    qrViewController?.dispose();
+    super.dispose();
+  }
+
+  void _onQRViewCreated(QRViewController controller) {
+    qrViewController = controller;
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        barcodeResult = scanData;
+      });
+    });
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
+import 'screens/qr_scanner.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -60,7 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
           SpeedDialChild(
             child: const Icon(Icons.camera),
             label: 'Scan QR Code',
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const QRScanner()));
+            },
           ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
