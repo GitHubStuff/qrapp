@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-import 'classes/random_string.dart' as S;
+import 'classes/random_string.dart' as str;
 import 'screens/qr_generator.dart';
 import 'screens/qr_scanner.dart';
 
@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              'Tap Button for options',
             ),
           ],
         ),
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Icon(Icons.qr_code),
             label: 'Generate QR Code',
             onTap: () {
-              final String randomText = S.getRandomString(15);
+              final String randomText = str.getRandomString(15);
               Navigator.push(
                 context,
                 MaterialPageRoute(
