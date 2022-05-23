@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class QRGenerator extends StatefulWidget {
+  static const route = '/QRGenerator';
+  
   final String qrString;
 
   const QRGenerator({Key? key, required this.qrString}) : super(key: key);
