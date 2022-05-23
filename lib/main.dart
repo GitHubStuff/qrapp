@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
+import 'classes/random_string.dart' as S;
+import 'screens/qr_generator.dart';
 import 'screens/qr_scanner.dart';
 
 void main() {
@@ -57,7 +59,15 @@ class _MyHomePageState extends State<MyHomePage> {
           SpeedDialChild(
             child: const Icon(Icons.qr_code),
             label: 'Generate QR Code',
-            onTap: () {},
+            onTap: () {
+              final String randomText = S.getRandomString(15);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => QRGenerator(qrString: randomText),
+                ),
+              );
+            },
           ),
           SpeedDialChild(
             child: const Icon(Icons.camera),
