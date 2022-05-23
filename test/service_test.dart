@@ -12,11 +12,19 @@ import 'package:qrapp/qr_code_dto/qr_code_dto.dart';
 import 'package:qrapp/services/get_service.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Socket Error', (WidgetTester tester) async {
     Either<Failure, QRCodeDTO> result = await GetSocketExceptionService().qrSeed();
     expect(result.isLeft(), true);
     result.fold((fail) {
-      expect(Left(Failure('No Internet connectin')), fail);
+      expect(fail.message, 'No Internet connectin');
+    }, (qrCodeDTO) {});
+  });
+
+  testWidgets('HTTP 404 Error', (WidgetTester tester) async {
+    Either<Failure, QRCodeDTO> result = await Get404ExceptionService().qrSeed();
+    expect(result.isLeft(), true);
+    result.fold((fail) {
+      expect(fail.message, 'HTTP 404');
     }, (qrCodeDTO) {});
   });
 }

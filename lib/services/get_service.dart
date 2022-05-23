@@ -13,3 +13,10 @@ class GetSocketExceptionService extends GetService {
     return Left(Failure('No Internet connectin'));
   }
 }
+
+class Get404ExceptionService extends GetService {
+  @override
+  Future<Either<Failure, QRCodeDTO>> qrSeed({String? url}) async {
+    return Left(Failure('HTTP 404'));
+  }
+}
