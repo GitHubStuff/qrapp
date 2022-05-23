@@ -5,6 +5,7 @@ part 'qr_code_dto.g.dart';
 @JsonSerializable()
 class QRCodeDTO {
   final String seed;
+  @JsonKey(name: 'expires_at')
   final String expiresAt;
 
   QRCodeDTO({required this.seed, required this.expiresAt});

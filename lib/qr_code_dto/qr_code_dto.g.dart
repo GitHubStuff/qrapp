@@ -8,10 +8,10 @@ part of 'qr_code_dto.dart';
 
 QRCodeDTO _$QRCodeDTOFromJson(Map<String, dynamic> json) => QRCodeDTO(
       seed: json['seed'] as String,
-      expiresAt: json['expiresAt'] as String,
+      expiresAt: json['expires_at'] as String,
     );
 
 Map<String, dynamic> _$QRCodeDTOToJson(QRCodeDTO instance) => <String, dynamic>{
       'seed': instance.seed,
-      'expiresAt': instance.expiresAt,
+      'expires_at': instance.expiresAt,
     };

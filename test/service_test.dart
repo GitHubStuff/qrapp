@@ -12,7 +12,7 @@ import 'package:qrapp/qr_code_dto/qr_code_dto.dart';
 import 'package:qrapp/services/get_service.dart';
 
 void main() {
-  testWidgets('Socket Error', (WidgetTester tester) async {
+  test('Socket Error', () async {
     Either<Failure, QRCodeDTO> result = await GetSocketExceptionService().qrSeed();
     expect(result.isLeft(), true);
     result.fold((fail) {
@@ -20,11 +20,28 @@ void main() {
     }, (qrCodeDTO) {});
   });
 
-  testWidgets('HTTP 404 Error', (WidgetTester tester) async {
+  test('HTTP 404 Error', () async {
     Either<Failure, QRCodeDTO> result = await Get404ExceptionService().qrSeed();
     expect(result.isLeft(), true);
     result.fold((fail) {
       expect(fail.message, 'HTTP 404');
     }, (qrCodeDTO) {});
+  });
+
+  test('Bad Data', () async {
+    Either<Failure, QRCodeDTO> result = await GetBadDataService().qrSeed();
+    expect(result.isLeft(), true);
+    result.fold((fail) {
+      expect(fail.message.isNotEmpty, true);
+    }, (qrCodeDTO) {});
+  });
+
+  test('Good Data', () async {
+    Either<Failure, QRCodeDTO> result = await GetTestService().qrSeed();
+    expect(result.isRight(), true);
+    result.fold((fail) {}, (qrCodeDTO) {
+      expect(qrCodeDTO.seed, 'sample data');
+      expect(qrCodeDTO.expiresAt, '2022-01-01T12:01:02.123T');
+    });
   });
 }
