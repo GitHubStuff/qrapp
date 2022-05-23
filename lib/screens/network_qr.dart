@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:qrapp/cubit/network_qr_cubit.dart';
 
 import 'qr_generator.dart';
 
 class NetworkQR extends StatelessWidget {
   static const route = '/NetworkQR';
-  
+
   NetworkQR({Key? key}) : super(key: key);
 
   final NetworkQrCubit cubit = NetworkQrCubit();
@@ -25,12 +26,7 @@ class NetworkQR extends StatelessWidget {
               }
               if (state is NetworkDownloadedQR) {
                 Future.delayed(const Duration(milliseconds: 150), () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => QRGenerator(qrString: state.qrData),
-                    ),
-                  );
+                  Modular.to.pushNamed(QRGenerator.route, arguments: state.qrData);
                 });
               }
               return const CircularProgressIndicator();

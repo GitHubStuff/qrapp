@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:qrapp/screens/network_qr.dart';
 
-import '../classes/random_string.dart' as str;
-import 'qr_generator.dart';
 import 'qr_scanner.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -43,13 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Icon(Icons.qr_code),
             label: 'Generate QR Code',
             onTap: () {
-              final String randomText = str.getRandomString(15);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => QRGenerator(qrString: randomText),
-                ),
-              );
+              Modular.to.pushNamed(NetworkQR.route);
             },
           ),
           SpeedDialChild(
