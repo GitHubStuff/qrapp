@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class QRScanner extends StatelessWidget {
+  const QRScanner({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
