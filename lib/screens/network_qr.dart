@@ -1,3 +1,7 @@
+// Screen that requests a network call for a QRCode and displays
+// 1 - progress indicator
+// 2 - any network errors that occur
+// 3 - transfers to screen that will render the QRCode object returned
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';

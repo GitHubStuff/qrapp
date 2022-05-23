@@ -1,3 +1,5 @@
+// Method for test/development to generate a random string sample that
+// would be otherwise be returned by the network get
 import 'dart:math';
 
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';

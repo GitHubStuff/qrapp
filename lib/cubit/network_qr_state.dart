@@ -1,3 +1,4 @@
+// States around the network call for a the qr seed.
 part of 'network_qr_cubit.dart';
 
 @immutable

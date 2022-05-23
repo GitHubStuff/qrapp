@@ -1,3 +1,4 @@
+// Home screen of the app with instructions and FAB to scan or generate QR-codes
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';

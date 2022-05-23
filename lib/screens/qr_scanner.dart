@@ -1,3 +1,5 @@
+// Uses the camera view to allow the user to line-up a QRCode and the class
+// will automatically scan the QRCode.
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -50,7 +52,17 @@ class _MyHomePageState extends State<QRScanner> {
               child: Center(
                 child: (barcodeResult != null) ? Text('Barcode Type: ${describeEnum(barcodeResult!.format)}   Data: ${barcodeResult!.code}') : const Text('Scan a code'),
               ),
-            )
+            ),
+            Expanded(
+              flex: 1,
+              child: Center(
+                child: (barcodeResult != null)
+                    ? _showQRButton()
+                    : const SizedBox(
+                        height: 46.0,
+                      ),
+              ),
+            ),
           ],
         ),
       ),
