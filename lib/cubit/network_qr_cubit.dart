@@ -15,6 +15,10 @@ class NetworkQrCubit extends Cubit<NetworkQrState> {
   void download() async {
     final GetService service = Modular.get<GetService>();
     Either<Failure, QRCodeDTO> seedResult = await service.qrSeed();
-    seedResult.fold((fail) {}, (qrData) {});
+    seedResult.fold((fail) {
+      emit(NetworkFailure(fail));
+    }, (qrData) {
+      emit(NetworkDownloadedQR(qrData.seed));
+    });
   }
 }
